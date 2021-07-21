@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createConnection, getConnection, Repository } from 'typeorm'
 import { Contact } from "./contactModel";
 import { ContactSchema } from "./contactdefinition";
+import { exception } from "console";
 
 export class ContactController {
     contactRepository: Repository<Contact> = null
@@ -14,12 +15,18 @@ export class ContactController {
     }
 
     async getContacts(req: Request, res: Response) {
+        try{
         let contacts = await this.contactRepository.find()
         res.send(contacts)
+        }
+        catch(error){
+           res.status(400).send(error)
+        };
+        
     }
 
-    getContact(req: Request, res: Response) {
-        res.send({})
+    async getContact(req: Request, res: Response) {
+        let contact = await this.contactRepository.findOne(req.params.id)
     }
 
     async createContact(req: Request, res: Response) {
@@ -35,11 +42,17 @@ export class ContactController {
         res.send(newContact)
     }
 
-    updateContact(req: Request, res: Response) {
-        return {};
+    async updateContact(req: Request, res: Response) {
+        let contact = await this.contactRepository.findOne(req.params.id)
+        contact = this.contactRepository.merge(contact,req.body)
+        await this.contactRepository.save(contact);
     }
 
-    deleteContact(req: Request, res: Response) {
+    async deleteContact(req: Request, res: Response) {
+        let contact = await this.contactRepository.findOne(req.params.id)
+        let context = await this.contactRepository.remove(contact)
+        await this.contactRepository.save(contact);
+        
         return {};
     }
 }

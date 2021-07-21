@@ -14,19 +14,21 @@ export class ContactRouter {
             await this.controller.getContacts(req, res)
         })
 
+        router.get('/', async (req: Request, res: Response) => {
+            console.log(req.params.id);
+            await this.controller.getContacts(req, res)
+        })
+
         router.post('/', async (req: Request, res: Response) => {
             await this.controller.createContact(req, res);
         })
 
         router.put('/', (req: Request, res: Response) => {
-            res.send('Hello World!')
+            this.controller.updateContact(req,res)
         })
 
-        router.delete('/:id', (req: Request, res: Response) => {
-            const id: number = Number(req.params.id)
-            //this.contacts.splice(id, 1)
-
-            //res.send(this.contacts)
+        router.delete('/:id', async (req: Request, res: Response) => {
+           await this.controller.deleteContact(req,res)
         })
 
         return router
