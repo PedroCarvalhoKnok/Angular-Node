@@ -1,0 +1,8 @@
+{
+    "type" : "sqllite",
+    "host": "localhost",
+    "database": "database/sqlliteserver.db",
+    "logging": true,
+    "synchronize" : true,
+    "entities": ["src/repository/*.ts"]
+}
