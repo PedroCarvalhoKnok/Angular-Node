@@ -1,15 +1,33 @@
-<div class="card">
+<div class="card mt-5 mx-auto col-md-8 col-lg-6">
 <div class="card-body">
 <h1 class="card-title">
-<form>
+
+<form [formGroup]="formGroup" >
 <div class="form-group">
 <label for="name-input">Nome</label>
-<input type="text" id="name-input" class="form-group" name="name" [{ngModel}] = "nameInput"></input>
+<input type="text" id="name-input" class="form-group is-invalid" formControlName="name" name="name-input" [{ngModel}] = "name"
+[ngClass] = "{
+    'is-invalid': this.formGroup.controls.name.errors && this.formSubmitted
+}">
+<div class="invalid-feedback">
+Campo nome Invalido
+</div>
+</div>
+<div class="form-group">
+<label for="tel-input">Telefone</label>
+<input type="text" id="tel-input" class="form-group is-invalid" formControlName="tel" name="tel-input" [{ngModel}] = "phone" placeholder="(xx)x xxxx-xxxx" mask="(00)0 0000-0000 || 0 00000000"
+[ngClass] = "{
+    'is-invalid': this.formGroup.controls.phone.errors && this.formSubmitted
+}">
+<div class="invalid-feedback">
+<p ngIf="this.formGroup.controls.phone.errors?.required">Campo telefone Invalido</p>
+<p ngIf="this.formGroup.controls.phone.errors?.minlength">Campo telefone deve ter entre 10 e 11 caracteres</p>
 </div>
 </form>
+
 </h1>
 </div>
 
 </div>
-
-<button (click)="print()" color="primary">Cadastrar</button>
+<button type="button" class="btn btn-outline-primary mr-3" routerLink="/">Cancelar</button>
+<button (click)="sendContact()" color="primary">Cadastrar</button>
