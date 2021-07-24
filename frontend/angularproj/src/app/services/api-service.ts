@@ -7,13 +7,13 @@ import { Contact } from "../model/contactmodel";
 
 export class ApiService{
 
+    baseUrl = 'http://localhost:3000/contact/'
+
     constructor(private http:HttpClient){
 
        
 
     }
-
-    baseUrl = 'http://localhost:3000/contact/'
 
     get(){
 
@@ -23,7 +23,7 @@ export class ApiService{
 
     getById(id: number){
 
-        return this.http.get<Contact>(this.baseUrl + id).toPromise()
+        return this.http.get<Contact>(this.baseUrl + '/' + id).toPromise()
             
     }
 
@@ -35,7 +35,7 @@ export class ApiService{
 
     delete(id: number){
             
-        return this.http.delete<void>(this.baseUrl + id).toPromise()
+        return this.http.delete<void>(this.baseUrl + '/' + id).toPromise()
     }
 
     put(contact: Contact){

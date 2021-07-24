@@ -23,8 +23,8 @@ export class ContactRouter {
             await this.controller.createContact(req, res);
         })
 
-        router.put('/', (req: Request, res: Response) => {
-            this.controller.updateContact(req,res)
+        router.put('/', async (req: Request, res: Response) => {
+            await this.controller.updateContact(req,res)
         })
 
         router.delete('/:id', async (req: Request, res: Response) => {

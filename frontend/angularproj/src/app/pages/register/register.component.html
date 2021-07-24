@@ -2,7 +2,7 @@
 <div class="card-body">
 <h1 class="card-title">
 
-<form [formGroup]="formGroup" >
+<form (ngSubmit)="sendContact()" [formGroup]="formGroup" >
 <div class="form-group">
 <label for="name-input">Nome</label>
 <input type="text" id="name-input" class="form-group is-invalid" formControlName="name" name="name-input" [{ngModel}] = "name"
@@ -10,7 +10,7 @@
     'is-invalid': this.formGroup.controls.name.errors && this.formSubmitted
 }">
 <div class="invalid-feedback">
-Campo nome Invalido
+Campo nome é necessario
 </div>
 </div>
 <div class="form-group">
@@ -20,7 +20,7 @@ Campo nome Invalido
     'is-invalid': this.formGroup.controls.phone.errors && this.formSubmitted
 }">
 <div class="invalid-feedback">
-<p ngIf="this.formGroup.controls.phone.errors?.required">Campo telefone Invalido</p>
+<p ngIf="this.formGroup.controls.phone.errors?.required">Campo telefone é necessario</p>
 <p ngIf="this.formGroup.controls.phone.errors?.minlength">Campo telefone deve ter entre 10 e 11 caracteres</p>
 </div>
 </form>
